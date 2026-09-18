@@ -43,7 +43,7 @@ export function Footer({
         </div>
       </div>
       <div className="border-t border-sand/10 py-4 text-center text-xs text-sand/60">
-        © {new Date().getFullYear()} {t(content, "footer.rights")} · {social.licence}
+        © 2026 {t(content, "footer.rights")} · {social.licence}
       </div>
     </footer>
   );

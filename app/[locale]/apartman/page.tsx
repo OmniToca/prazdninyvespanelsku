@@ -64,6 +64,7 @@ export default async function ApartmentPage({ params }: { params: Promise<{ loca
           <p className="mt-2 max-w-2xl text-muted">{t(content, "video.lead")}</p>
           <div className="mt-6">
             <VideoEmbed
+              videoId={social.apartmentVideo}
               title={t(content, "video.title")}
               poster={photos.terraceSea}
               posterAlt={t(content, "apartment.gallery.terrace")}

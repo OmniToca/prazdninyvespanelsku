@@ -3,13 +3,14 @@
 import Image from "next/image";
 import { useState } from "react";
 import { Play } from "lucide-react";
-import { social } from "@/content/social";
 
 export function VideoEmbed({
+  videoId,
   title,
   poster,
   posterAlt,
 }: {
+  videoId: string;
   title: string;
   poster: string;
   posterAlt: string;
@@ -20,7 +21,7 @@ export function VideoEmbed({
     <div className="aspect-video overflow-hidden rounded-sm bg-sea">
       {playing ? (
         <iframe
-          src={`https://www.youtube-nocookie.com/embed/${social.apartmentVideo}?autoplay=1&modestbranding=1&rel=0&playsinline=1`}
+          src={`https://www.youtube-nocookie.com/embed/${videoId}?autoplay=1&modestbranding=1&rel=0&playsinline=1`}
           title={title}
           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
           allowFullScreen

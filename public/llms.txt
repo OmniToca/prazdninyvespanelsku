@@ -24,7 +24,8 @@
 
 - Home: /
 - Apartment: /apartman
-- Santa Pola and area: /santa-pola
+- Santa Pola and area: /santa-pola (city film, living notes on beaches, restaurants, shops, museums and day trips; each place has Google Maps and a QR code)
+- Place notes live under /santa-pola/{slug} (e.g. /santa-pola/catasimo, /santa-pola/tabarca)
 - Rates: /cenik
 - Enquiry and FAQ: /rezervace
 - Contact: /kontakt

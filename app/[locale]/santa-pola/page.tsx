@@ -2,9 +2,14 @@ import Image from "next/image";
 import type { Metadata } from "next";
 import { setRequestLocale } from "next-intl/server";
 import { photos } from "@/content/media";
+import { social } from "@/content/social";
+import { placesIn, placePath } from "@/content/places";
 import { CtaBand } from "@/components/CtaBand";
+import { PlaceGuide } from "@/components/PlaceGuide";
+import { VideoEmbed } from "@/components/VideoEmbed";
 import { getContent, t } from "@/lib/content";
 import { pageMeta } from "@/lib/seo";
+import { Link } from "@/i18n/navigation";
 import type { Locale } from "@/i18n/routing";
 
 export async function generateMetadata({
@@ -27,12 +32,38 @@ export default async function SantaPolaPage({ params }: { params: Promise<{ loca
   const { locale } = await params;
   setRequestLocale(locale);
   const content = await getContent(locale as Locale);
+  const loc = locale as Locale;
   const blocks = [
-    { img: photos.santaPolaSign, title: "santaPola.cityTitle", text: "santaPola.cityText" },
-    { img: photos.port, title: "santaPola.beachesTitle", text: "santaPola.beachesText" },
-    { img: photos.market, title: "santaPola.foodTitle", text: "santaPola.foodText" },
-    { img: photos.lighthouse, title: "santaPola.tripsTitle", text: "santaPola.tripsText" },
-    { img: photos.tabarca, title: "santaPola.tabarcaTitle", text: "santaPola.tabarcaText" },
+    {
+      img: photos.santaPolaSign,
+      title: "santaPola.cityTitle",
+      text: "santaPola.cityText",
+      links: [] as const,
+    },
+    {
+      img: photos.port,
+      title: "santaPola.beachesTitle",
+      text: "santaPola.beachesText",
+      links: placesIn("beach"),
+    },
+    {
+      img: photos.market,
+      title: "santaPola.foodTitle",
+      text: "santaPola.foodText",
+      links: [...placesIn("table"), ...placesIn("shop")],
+    },
+    {
+      img: photos.lighthouse,
+      title: "santaPola.tripsTitle",
+      text: "santaPola.tripsText",
+      links: [...placesIn("museum"), ...placesIn("trip").filter((p) => p.slug !== "tabarca")],
+    },
+    {
+      img: photos.tabarca,
+      title: "santaPola.tabarcaTitle",
+      text: "santaPola.tabarcaText",
+      links: placesIn("trip").filter((p) => p.slug === "tabarca"),
+    },
   ];
 
   return (
@@ -50,6 +81,19 @@ export default async function SantaPolaPage({ params }: { params: Promise<{ loca
         <p className="text-lg leading-relaxed text-muted">{t(content, "santaPola.lead")}</p>
       </section>
 
+      <section className="mx-auto max-w-5xl px-4 pb-12 sm:px-6 md:pb-16">
+        <h2 className="font-serif text-3xl text-sea md:text-4xl">{t(content, "santaPola.videoTitle")}</h2>
+        <p className="mt-2 max-w-2xl text-muted">{t(content, "santaPola.videoLead")}</p>
+        <div className="mt-6">
+          <VideoEmbed
+            videoId={social.santaPolaVideo}
+            title={t(content, "santaPola.videoTitle")}
+            poster={photos.port}
+            posterAlt={t(content, "santaPola.title")}
+          />
+        </div>
+      </section>
+
       <div className="space-y-16 pb-16 md:space-y-20 md:pb-20">
         {blocks.map((block, i) => (
           <article
@@ -64,10 +108,21 @@ export default async function SantaPolaPage({ params }: { params: Promise<{ loca
             <div>
               <h2 className="font-serif text-3xl text-sea">{t(content, block.title)}</h2>
               <p className="mt-4 leading-relaxed text-muted">{t(content, block.text)}</p>
+              {block.links.length > 0 && (
+                <p className="mt-5 flex flex-wrap gap-x-4 gap-y-2 text-sm">
+                  {block.links.map((place) => (
+                    <Link key={place.slug} href={placePath(place.slug)} className="text-azure">
+                      {place.name}
+                    </Link>
+                  ))}
+                </p>
+              )}
             </div>
           </article>
         ))}
       </div>
+
+      <PlaceGuide locale={loc} content={content} />
 
       <CtaBand
         title={t(content, "home.ctaBandTitle")}

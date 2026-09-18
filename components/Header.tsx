@@ -76,7 +76,7 @@ export function Header({
                 key={item.href}
                 href={item.href}
                 className={`text-sm tracking-wide ${
-                  pathname === item.href
+                  pathname === item.href || (item.href !== "/" && pathname.startsWith(item.href))
                     ? solid
                       ? "text-sea"
                       : "text-sand [text-shadow:0_1px_12px_rgba(0,0,0,0.55)]"
