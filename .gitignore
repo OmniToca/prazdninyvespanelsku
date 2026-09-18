@@ -50,4 +50,5 @@ next-env.d.ts
 
 # Local Supabase CLI
 supabase/.temp
+deno.lock
 
