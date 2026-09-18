@@ -1,5 +1,5 @@
 import type { InquiryRow } from "./db";
-import { getSupabase } from "./supabase";
+import { getSupabase, hasSupabase } from "./supabase";
 
 function asInquiry(row: InquiryRow & { start_date?: string; end_date?: string }): InquiryRow {
   return {
@@ -11,6 +11,7 @@ function asInquiry(row: InquiryRow & { start_date?: string; end_date?: string })
 }
 
 export async function listInquiries(): Promise<InquiryRow[]> {
+  if (!hasSupabase()) return [];
   const { data, error } = await getSupabase()
     .from("inquiries")
     .select("*")

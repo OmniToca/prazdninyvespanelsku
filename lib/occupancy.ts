@@ -1,6 +1,6 @@
 import { eachDayOfInterval, format, parseISO, subDays } from "date-fns";
 import type { OccupancyRow } from "./db";
-import { getSupabase } from "./supabase";
+import { getSupabase, hasSupabase } from "./supabase";
 
 function asOccupancy(row: {
   id: number;
@@ -21,6 +21,7 @@ function asOccupancy(row: {
 }
 
 export async function listOccupancy(): Promise<OccupancyRow[]> {
+  if (!hasSupabase()) return [];
   const { data, error } = await getSupabase()
     .from("occupancy")
     .select("id, start_date, end_date, type, inquiry_id, note")
@@ -49,6 +50,7 @@ export async function occupiedDays(): Promise<string[]> {
 }
 
 export async function rangeFree(start: string, end: string, ignoreInquiryId?: number) {
+  if (!hasSupabase()) return true;
   let query = getSupabase()
     .from("occupancy")
     .select("id")

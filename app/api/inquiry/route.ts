@@ -3,6 +3,7 @@ import { createInquiry } from "@/lib/inquiries";
 import { notifyOwner, sendMail } from "@/lib/mail";
 import { rangeFree } from "@/lib/occupancy";
 import { quoteStay } from "@/lib/pricing";
+import { hasSupabase } from "@/lib/supabase";
 
 export async function POST(request: Request) {
   const body = await request.json();
@@ -19,6 +20,9 @@ export async function POST(request: Request) {
 
   if (!name || !email || !start || !end || guests < 1 || guests > 8) {
     return NextResponse.json({ error: "invalid" }, { status: 400 });
+  }
+  if (!hasSupabase()) {
+    return NextResponse.json({ error: "database-unconfigured" }, { status: 503 });
   }
   if (!(await rangeFree(start, end))) {
     return NextResponse.json({ error: "occupied" }, { status: 409 });

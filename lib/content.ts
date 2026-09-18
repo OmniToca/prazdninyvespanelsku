@@ -2,12 +2,8 @@ import { cache } from "react";
 import { fields, SHARED_LOCALE } from "@/content/fields";
 import { seedTexts } from "@/content/seed";
 import type { Locale } from "@/i18n/routing";
-import { getSupabase } from "./supabase";
+import { getSupabase, hasSupabase } from "./supabase";
 export { t } from "./copy";
-
-function hasSupabase() {
-  return Boolean(process.env.NEXT_PUBLIC_SUPABASE_URL && process.env.SUPABASE_SERVICE_ROLE_KEY);
-}
 
 function contentFromSeed(locale: Locale): Record<string, string> {
   const out: Record<string, string> = {};
