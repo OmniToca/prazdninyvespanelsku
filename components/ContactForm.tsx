@@ -33,7 +33,7 @@ export function ContactForm({ content }: { content: Record<string, string> }) {
         <input
           required
           name="name"
-          className="mt-1 w-full rounded-xl border border-sea/15 bg-white px-3 py-2"
+          className="mt-1 w-full rounded-md border border-sea/15 bg-white px-3 py-2"
         />
       </label>
       <label className="block text-sm">
@@ -42,7 +42,7 @@ export function ContactForm({ content }: { content: Record<string, string> }) {
           required
           type="email"
           name="email"
-          className="mt-1 w-full rounded-xl border border-sea/15 bg-white px-3 py-2"
+          className="mt-1 w-full rounded-md border border-sea/15 bg-white px-3 py-2"
         />
       </label>
       <label className="block text-sm">
@@ -51,12 +51,12 @@ export function ContactForm({ content }: { content: Record<string, string> }) {
           required
           name="message"
           rows={5}
-          className="mt-1 w-full rounded-xl border border-sea/15 bg-white px-3 py-2"
+          className="mt-1 w-full rounded-md border border-sea/15 bg-white px-3 py-2"
         />
       </label>
       <input name="honey" className="hidden" tabIndex={-1} autoComplete="off" />
       {status === "error" && <p className="text-sm text-coral">{t(content, "booking.error")}</p>}
-      <button className="rounded-full bg-sea px-6 py-3 text-sand">{t(content, "contact.submit")}</button>
+      <button className="rounded-md bg-sea px-6 py-3 text-sand">{t(content, "contact.submit")}</button>
     </form>
   );
 }

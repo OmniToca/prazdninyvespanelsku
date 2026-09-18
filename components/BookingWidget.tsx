@@ -190,7 +190,7 @@ export function BookingWidget({
 
   return (
     <div className="grid gap-10 lg:grid-cols-[1.1fr_0.9fr]">
-      <div className="rounded-3xl bg-white/70 p-5 shadow-sm sm:p-8">
+      <div className="rounded-sm bg-white p-5 sm:p-8">
         <div className="mb-6 flex items-center justify-between">
           <button type="button" onClick={() => setCursor((c) => addMonths(c, -1))} aria-label="Prev">
             <ChevronLeft />
@@ -220,7 +220,7 @@ export function BookingWidget({
         </div>
       </div>
 
-      <form onSubmit={submit} className="rounded-3xl bg-white/70 p-5 shadow-sm sm:p-8">
+      <form onSubmit={submit} className="rounded-sm bg-white p-5 sm:p-8">
         {status === "ok" ? (
           <p className="font-serif text-2xl text-sea">{t(content, "booking.success")}</p>
         ) : (
@@ -236,7 +236,7 @@ export function BookingWidget({
                     setFrom(e.target.value);
                     if (to) void refreshQuote(e.target.value, to, transfer);
                   }}
-                  className="mt-1 w-full rounded-xl border border-sea/15 bg-sand px-3 py-2"
+                  className="mt-1 w-full rounded-md border border-sea/15 bg-sand px-3 py-2"
                 />
               </label>
               <label className="text-sm">
@@ -249,7 +249,7 @@ export function BookingWidget({
                     setTo(e.target.value);
                     if (from) void refreshQuote(from, e.target.value, transfer);
                   }}
-                  className="mt-1 w-full rounded-xl border border-sea/15 bg-sand px-3 py-2"
+                  className="mt-1 w-full rounded-md border border-sea/15 bg-sand px-3 py-2"
                 />
               </label>
             </div>
@@ -261,7 +261,7 @@ export function BookingWidget({
                 max={8}
                 value={guests}
                 onChange={(e) => setGuests(Number(e.target.value))}
-                className="mt-1 w-full rounded-xl border border-sea/15 bg-sand px-3 py-2"
+                className="mt-1 w-full rounded-md border border-sea/15 bg-sand px-3 py-2"
               />
             </label>
             <label className="mt-4 block text-sm">
@@ -270,7 +270,7 @@ export function BookingWidget({
                 required
                 value={name}
                 onChange={(e) => setName(e.target.value)}
-                className="mt-1 w-full rounded-xl border border-sea/15 bg-sand px-3 py-2"
+                className="mt-1 w-full rounded-md border border-sea/15 bg-sand px-3 py-2"
               />
             </label>
             <label className="mt-4 block text-sm">
@@ -280,7 +280,7 @@ export function BookingWidget({
                 type="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                className="mt-1 w-full rounded-xl border border-sea/15 bg-sand px-3 py-2"
+                className="mt-1 w-full rounded-md border border-sea/15 bg-sand px-3 py-2"
               />
             </label>
             <label className="mt-4 flex items-center gap-2 text-sm">
@@ -300,13 +300,13 @@ export function BookingWidget({
                 rows={4}
                 value={message}
                 onChange={(e) => setMessage(e.target.value)}
-                className="mt-1 w-full rounded-xl border border-sea/15 bg-sand px-3 py-2"
+                className="mt-1 w-full rounded-md border border-sea/15 bg-sand px-3 py-2"
               />
             </label>
             <input type="text" name="honey" className="hidden" tabIndex={-1} autoComplete="off" />
 
             {quote && quote.ok && (
-              <div className="mt-5 space-y-1 rounded-2xl bg-sand p-4 text-sm">
+              <div className="mt-5 space-y-1 rounded-md bg-sand p-4 text-sm">
                 <p>
                   {quote.nights} {t(content, "booking.nights")} · {t(content, "booking.stay")}{" "}
                   {eur(quote.stayCents)}
@@ -336,7 +336,7 @@ export function BookingWidget({
 
             <button
               disabled={status === "sending"}
-              className="mt-6 w-full rounded-full bg-sea py-3 text-sand disabled:opacity-60"
+              className="mt-6 w-full rounded-md bg-sea py-3 text-sand disabled:opacity-60"
             >
               {t(content, "booking.submit")}
             </button>

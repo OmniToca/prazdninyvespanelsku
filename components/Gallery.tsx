@@ -17,7 +17,7 @@ export function Gallery({
           <button
             key={item.src + i}
             type="button"
-            className="group relative aspect-[4/3] overflow-hidden rounded-2xl"
+            className="group relative aspect-[4/3] overflow-hidden rounded-sm"
             onClick={() => setActive(i)}
           >
             <Image

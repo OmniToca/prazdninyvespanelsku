@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { setRequestLocale } from "next-intl/server";
 import { getContent, t } from "@/lib/content";
+import { pageMeta } from "@/lib/seo";
 import type { Locale } from "@/i18n/routing";
 
 export async function generateMetadata({
@@ -10,7 +11,13 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { locale } = await params;
   const content = await getContent(locale as Locale);
-  return { title: t(content, "welcome.metaTitle") };
+  return pageMeta({
+    locale: locale as Locale,
+    path: "/welcome",
+    title: t(content, "welcome.metaTitle"),
+    description: t(content, "welcome.lead"),
+    index: false,
+  });
 }
 
 const manuals = [
@@ -39,7 +46,7 @@ export default async function WelcomePage({ params }: { params: Promise<{ locale
         <h2 className="font-serif text-2xl text-sea">{t(content, "welcome.checkin")}</h2>
         <div className="mt-4 flex flex-wrap gap-3">
           {manuals.map((item) => (
-            <a key={item.href} href={item.href} className="rounded-full bg-white px-4 py-2 text-sm text-sea">
+            <a key={item.href} href={item.href} className="rounded-md bg-white px-4 py-2 text-sm text-sea">
               {item.label}
             </a>
           ))}
@@ -49,7 +56,7 @@ export default async function WelcomePage({ params }: { params: Promise<{ locale
         <h2 className="font-serif text-2xl text-sea">{t(content, "welcome.guide")}</h2>
         <div className="mt-4 flex flex-wrap gap-3">
           {guides.map((item) => (
-            <a key={item.href} href={item.href} className="rounded-full bg-white px-4 py-2 text-sm text-sea">
+            <a key={item.href} href={item.href} className="rounded-md bg-white px-4 py-2 text-sm text-sea">
               {item.label}
             </a>
           ))}

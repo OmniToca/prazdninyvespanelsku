@@ -1,21 +1,25 @@
 import type { MetadataRoute } from "next";
 import { routing } from "@/i18n/routing";
+import { absoluteUrl, languageAlternates } from "@/lib/seo";
 
-const site = process.env.NEXT_PUBLIC_SITE_URL || "https://prazdninyvespanelsku.cz";
-const paths = ["", "/apartman", "/santa-pola", "/cenik", "/rezervace", "/kontakt", "/vop"];
+const pages: { path: string; changeFrequency: MetadataRoute.Sitemap[number]["changeFrequency"]; priority: number }[] =
+  [
+    { path: "/", changeFrequency: "weekly", priority: 1 },
+    { path: "/apartman", changeFrequency: "monthly", priority: 0.9 },
+    { path: "/santa-pola", changeFrequency: "monthly", priority: 0.8 },
+    { path: "/cenik", changeFrequency: "monthly", priority: 0.8 },
+    { path: "/rezervace", changeFrequency: "weekly", priority: 0.9 },
+    { path: "/kontakt", changeFrequency: "yearly", priority: 0.6 },
+    { path: "/vop", changeFrequency: "yearly", priority: 0.3 },
+  ];
 
 export default function sitemap(): MetadataRoute.Sitemap {
   return routing.locales.flatMap((locale) =>
-    paths.map((path) => ({
-      url: `${site}${locale === "cs" ? "" : `/${locale}`}${path || "/"}`,
-      alternates: {
-        languages: Object.fromEntries(
-          routing.locales.map((l) => [
-            l,
-            `${site}${l === "cs" ? "" : `/${l}`}${path || "/"}`,
-          ]),
-        ),
-      },
+    pages.map((page) => ({
+      url: absoluteUrl(locale, page.path),
+      changeFrequency: page.changeFrequency,
+      priority: page.priority,
+      alternates: { languages: languageAlternates(page.path) },
     })),
   );
 }

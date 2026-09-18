@@ -2,8 +2,11 @@ import type { Metadata } from "next";
 import { setRequestLocale } from "next-intl/server";
 import { BookingWidget } from "@/components/BookingWidget";
 import { Faq } from "@/components/Faq";
+import { JsonLd } from "@/components/JsonLd";
 import { getContent, t } from "@/lib/content";
 import { occupiedDays } from "@/lib/occupancy";
+import { pageMeta } from "@/lib/seo";
+import { faqJsonLd } from "@/lib/structured-data";
 import type { Locale } from "@/i18n/routing";
 
 export async function generateMetadata({
@@ -13,7 +16,12 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { locale } = await params;
   const content = await getContent(locale as Locale);
-  return { title: t(content, "booking.metaTitle"), description: t(content, "booking.lead") };
+  return pageMeta({
+    locale: locale as Locale,
+    path: "/rezervace",
+    title: t(content, "booking.metaTitle"),
+    description: t(content, "booking.lead"),
+  });
 }
 
 export const dynamic = "force-dynamic";
@@ -29,13 +37,14 @@ export default async function BookingPage({ params }: { params: Promise<{ locale
   }));
 
   return (
-    <div className="mx-auto max-w-6xl px-4 py-16 sm:px-6">
+    <div className="mx-auto max-w-6xl px-4 py-20 sm:px-6 md:py-28">
+      <JsonLd data={faqJsonLd(faq)} />
       <h1 className="font-serif text-5xl text-sea">{t(content, "booking.title")}</h1>
       <p className="mt-5 max-w-2xl text-lg text-muted">{t(content, "booking.lead")}</p>
       <div className="mt-12">
         <BookingWidget content={content} locale={locale as Locale} occupied={occupied} />
       </div>
-      <section className="mx-auto mt-20 max-w-3xl">
+      <section className="mx-auto mt-20 max-w-3xl md:mt-28">
         <h2 className="font-serif text-3xl text-sea">{t(content, "booking.faqTitle")}</h2>
         <div className="mt-6">
           <Faq items={faq} />

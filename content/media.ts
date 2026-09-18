@@ -15,6 +15,7 @@ export const photos = {
   lighthouse: "/media/25.jpg",
   market: "/media/22.jpg",
   welcomeGift: "/media/Micek.jpg",
+  owner: "/media/Micek.jpg",
 } as const;
 
 export const apartmentGallery = [

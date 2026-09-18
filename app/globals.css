@@ -1,17 +1,18 @@
 @import "tailwindcss";
 
 @theme inline {
-  --color-sand: #f6f1e8;
-  --color-sand-deep: #ebe3d4;
-  --color-sea: #163a4a;
-  --color-sea-soft: #1f4d61;
-  --color-azure: #2e6bdb;
+  /* Omítka. Vrátit len: #e8dfd0 / #ddd2c0. Vrátit bílý písek: #f4f7f8 / #e4ecef */
+  --color-sand: #f3eee4;
+  --color-sand-deep: #e8e2d6;
+  --color-sea: #0c3d4f;
+  --color-sea-soft: #16586e;
+  --color-azure: #1f7aaf;
   --color-sun: #e8b931;
   --color-coral: #e07a4a;
-  --color-ink: #1c1917;
-  --color-muted: #6b635b;
-  --font-sans: var(--font-outfit);
-  --font-serif: var(--font-fraunces);
+  --color-ink: #12242c;
+  --color-muted: #5b6b72;
+  --font-sans: var(--font-figtree);
+  --font-serif: var(--font-cormorant);
 }
 
 html {
@@ -29,5 +30,5 @@ body {
 }
 
 .font-serif {
-  font-family: var(--font-serif), Georgia, serif;
+  font-family: var(--font-serif), "Palatino Linotype", serif;
 }

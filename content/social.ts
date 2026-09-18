@@ -2,6 +2,7 @@ export const social = {
   facebook: "https://www.facebook.com/prazdninyvespanelsku.cz/",
   instagram: "https://www.instagram.com/prazdninyvespanelsku.cz/",
   youtube: "https://www.youtube.com/@prazdninyvespanelsku",
+  apartmentVideo: "kkehaHwh7hc",
   email: "info@prazdninyvespanelsku.cz",
   address: "C. Venezuela 11, 03130 Santa Pola, Alicante, Španělsko",
   mapsUrl:

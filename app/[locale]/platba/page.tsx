@@ -1,5 +1,23 @@
+import type { Metadata } from "next";
 import { getContent, t } from "@/lib/content";
+import { pageMeta } from "@/lib/seo";
 import type { Locale } from "@/i18n/routing";
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}): Promise<Metadata> {
+  const { locale } = await params;
+  const content = await getContent(locale as Locale);
+  return pageMeta({
+    locale: locale as Locale,
+    path: "/platba",
+    title: t(content, "booking.title"),
+    description: t(content, "booking.lead"),
+    index: false,
+  });
+}
 
 export default async function StripeResultPage({
   params,

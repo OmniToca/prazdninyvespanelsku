@@ -1,9 +1,16 @@
 import type { MetadataRoute } from "next";
+import { siteUrl } from "@/lib/seo";
 
 export default function robots(): MetadataRoute.Robots {
-  const site = process.env.NEXT_PUBLIC_SITE_URL || "https://prazdninyvespanelsku.cz";
+  const site = siteUrl();
   return {
-    rules: { userAgent: "*", allow: "/", disallow: ["/admin", "/api"] },
+    rules: [
+      {
+        userAgent: "*",
+        allow: "/",
+        disallow: ["/admin", "/api", "/welcome", "/*/welcome", "/platba", "/*/platba"],
+      },
+    ],
     sitemap: `${site}/sitemap.xml`,
   };
 }

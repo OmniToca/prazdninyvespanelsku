@@ -11,8 +11,8 @@ export function Footer({
   content: Record<string, string>;
 }) {
   return (
-    <footer className="mt-24 border-t border-sea/10 bg-sea text-sand">
-      <div className="mx-auto grid max-w-6xl gap-10 px-4 py-14 sm:px-6 md:grid-cols-3">
+    <footer className="bg-sea text-sand">
+      <div className="mx-auto grid max-w-6xl gap-10 border-t border-sand/10 px-4 py-12 sm:px-6 md:grid-cols-3">
         <div>
           <div className="flex items-center gap-3">
             <Image src="/logo/logo.png" alt="" width={101} height={112} className="h-12 w-auto" />

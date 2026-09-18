@@ -13,14 +13,14 @@ export function CtaBand({
 }) {
   return (
     <section className="bg-sea text-sand">
-      <div className="mx-auto flex max-w-6xl flex-col items-start justify-between gap-6 px-4 py-16 sm:px-6 md:flex-row md:items-center">
+      <div className="mx-auto flex max-w-6xl flex-col items-start justify-between gap-6 px-4 py-16 pb-12 sm:px-6 md:flex-row md:items-center">
         <div className="max-w-xl">
           <h2 className="font-serif text-3xl md:text-4xl">{title}</h2>
           <p className="mt-3 text-sand/80">{text}</p>
         </div>
         <Link
           href={href}
-          className="rounded-full bg-sun px-6 py-3 text-sm font-medium text-ink"
+          className="rounded-md bg-sun px-6 py-3 text-sm font-medium text-ink"
         >
           {label}
         </Link>

@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { setRequestLocale } from "next-intl/server";
 import { CtaBand } from "@/components/CtaBand";
 import { getContent, t } from "@/lib/content";
+import { pageMeta } from "@/lib/seo";
 import { formatEur, getPricing } from "@/lib/pricing";
 import type { Locale } from "@/i18n/routing";
 
@@ -12,7 +13,12 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { locale } = await params;
   const content = await getContent(locale as Locale);
-  return { title: t(content, "pricing.metaTitle"), description: t(content, "pricing.lead") };
+  return pageMeta({
+    locale: locale as Locale,
+    path: "/cenik",
+    title: t(content, "pricing.metaTitle"),
+    description: t(content, "pricing.lead"),
+  });
 }
 
 const seasons = [
@@ -31,14 +37,14 @@ export default async function PricingPage({ params }: { params: Promise<{ locale
 
   return (
     <>
-      <section className="mx-auto max-w-3xl px-4 py-16 sm:px-6">
+      <section className="mx-auto max-w-3xl px-4 py-20 sm:px-6 md:py-28">
         <h1 className="font-serif text-5xl text-sea">{t(content, "pricing.title")}</h1>
         <p className="mt-6 text-lg text-muted">{t(content, "pricing.lead")}</p>
       </section>
 
       <section className="mx-auto grid max-w-6xl gap-6 px-4 sm:px-6 md:grid-cols-2">
         {seasons.map((season) => (
-          <div key={season.name} className="rounded-3xl bg-white/70 p-6">
+          <div key={season.name} className="rounded-sm bg-white p-6">
             <h2 className="font-serif text-2xl text-sea">
               {t(content, `pricing.season.${season.name}`)}
             </h2>
@@ -61,12 +67,14 @@ export default async function PricingPage({ params }: { params: Promise<{ locale
         ))}
       </section>
 
-      <section className="mx-auto grid max-w-6xl gap-10 px-4 py-16 sm:px-6 lg:grid-cols-2">
+      <section className="mx-auto grid max-w-6xl gap-10 px-4 py-20 sm:px-6 md:py-28 lg:grid-cols-2">
         <div>
           <h2 className="font-serif text-3xl text-sea">{t(content, "pricing.includedTitle")}</h2>
-          <ul className="mt-4 list-disc space-y-2 pl-5 text-muted">
+          <ul className="mt-4 space-y-2 text-muted">
             {included.map((item) => (
-              <li key={item}>{item}</li>
+              <li key={item} className="border-l border-sun pl-4">
+                {item}
+              </li>
             ))}
           </ul>
         </div>

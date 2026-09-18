@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { setRequestLocale } from "next-intl/server";
 import { getContent, t } from "@/lib/content";
+import { pageMeta } from "@/lib/seo";
 import type { Locale } from "@/i18n/routing";
 
 export async function generateMetadata({
@@ -10,7 +11,12 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { locale } = await params;
   const content = await getContent(locale as Locale);
-  return { title: t(content, "legal.metaTitle") };
+  return pageMeta({
+    locale: locale as Locale,
+    path: "/vop",
+    title: t(content, "legal.metaTitle"),
+    description: t(content, "legal.title"),
+  });
 }
 
 export default async function LegalPage({ params }: { params: Promise<{ locale: string }> }) {
